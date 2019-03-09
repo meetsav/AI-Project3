@@ -17,7 +17,10 @@ public class Main {
              fl = new File(i+".txt");
              out = new Scanner(fl);
              initial=out.nextLine();
-             System.out.println(initial);
+            // System.out.println(initial);
+             BasePair bp=new BasePair(initial);
+             System.out.println(bp.getCount());
+
          }
 
 
