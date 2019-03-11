@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
 
 public class BasePair {
 
@@ -8,26 +7,15 @@ public class BasePair {
     public String basepair1="AU";
     public String basepair2="CG";
     public String basepair3="GU";
-    public int count=0,A,G,C,U;
 
+    int count=0;
+
+    public ArrayList<Integer> iterationIndex=new ArrayList<>();
     public BasePair(String str)
     {
         baseString=str;
         visited=new ArrayList<>();
-       //System.out.println(baseString);
-       for(int i =0;i<baseString.length();i++)
-       {
-           if(baseString.charAt(i)=='A')
-               A++;
-           else if(baseString.charAt(i)=='G')
-               G++;
-           else if(baseString.charAt(i)=='C')
-               C++;
-           else if(baseString.charAt(i)=='U')
-               U++;
 
-       }
-       // System.out.println(A+" "+G+" "+" "+C+" "+U);
     }
     public int getCount()
     {
@@ -37,20 +25,6 @@ public class BasePair {
                 if (!visited.contains(i)) {
 
                     char ch1 = baseString.charAt(i);
-                    char ch2 = ' ';
-
-                    {
-                        if (ch1 == 'A') {
-                            ch2 = 'U';
-                        } else if (ch1 == 'C') {
-                            ch2 = 'G';
-                        }
-                      /*  else if (ch1 == 'G') {
-                            ch2 = 'U';
-                        }
-                         else if (ch1 == 'G') {
-                             ch2 = 'C';
-                         }*/
 
                         for (int j = i + 1; j < baseString.length(); j++) {
 
@@ -58,18 +32,22 @@ public class BasePair {
                                 if (baseString.charAt(j) == 'A' || baseString.charAt(j) == 'G') {
                                     if (j - i >= 4 && !visited.contains(j)) {
                                         visited.add(j);
+                                        visited.add(i);
+
                                         count++;
-                                        //   System.out.println(baseString.charAt(i) + " " + baseString.charAt(j) + " " + i + " " + j);
+                                        //  System.out.println(baseString.charAt(i) + " " + baseString.charAt(j) + " " + i + " " + j);
                                         break;
 
                                     }
                                 }
 
                             }
-                            if (ch1 == 'G') {
+                            else if (ch1 == 'G') {
                                 if (baseString.charAt(j) == 'U' || baseString.charAt(j) == 'C') {
                                     if (j - i >= 4 && !visited.contains(j)) {
                                         visited.add(j);
+                                        visited.add(i);
+
                                         count++;
                                         // System.out.println(baseString.charAt(i) + " " + baseString.charAt(j) + " " + i + " " + j);
                                         break;
@@ -78,50 +56,166 @@ public class BasePair {
                                 }
 
                             }
-                            if (baseString.charAt(j) == ch2) {
-                                if (j - i >= 4 && !visited.contains(j)) {
-                                    visited.add(j);
-                                    count++;
-                                    // System.out.println(baseString.charAt(i) + " " + baseString.charAt(j) + " " + i + " " + j);
-                                    break;
+                            else if (ch1 == 'C') {
+                                if (baseString.charAt(j) == 'G') {
+                                    if (j - i >= 4 && !visited.contains(j)) {
+                                        visited.add(j);
+                                        visited.add(i);
 
+
+                                        count++;
+                                        // System.out.println(baseString.charAt(i) + " " + baseString.charAt(j) + " " + i + " " + j);
+                                        break;
+
+                                    }
                                 }
+
                             }
+                            else if (ch1 == 'A') {
+                                if (baseString.charAt(j) == 'U') {
+                                    if (j - i >= 4 && !visited.contains(j)) {
+                                        visited.add(j);
+                                        visited.add(i);
+
+
+                                        count++;
+                                        // System.out.println(baseString.charAt(i) + " " + baseString.charAt(j) + " " + i + " " + j);
+                                        break;
+
+                                    }
+                                }
+
+                            }
+
+
                         }
-                    }
                 }
-
-
-
-            getRandomStart();
         }
-
         return count ;
     }
-    public void getRandomStart()
+    public int getRandomStart()
     {
         Random rn=new Random();
         int in=rn.nextInt(baseString.length());
-        int in1=rn.nextInt(baseString.length());
-        String str=new String();
-        if(in>in1)
+        getIndexes(in);
+      //  System.out.println(in);
+      //  System.out.println(iterationIndex);
+        for (int i = 0; i < iterationIndex.size(); i++) {
+
+            if (!visited.contains(iterationIndex.get(i))) {
+
+                char ch1 = baseString.charAt(iterationIndex.get(i));
+
+                for (int j = i + 1; j < iterationIndex.size(); j++) {
+
+                    if (ch1 == 'U') {
+                        if (baseString.charAt(iterationIndex.get(j)) == 'A' || baseString.charAt(iterationIndex.get(j)) == 'G') {
+                            if (iterationIndex.get(j) - iterationIndex.get(i) >= 4 && !visited.contains(iterationIndex.get(j))) {
+                                visited.add(iterationIndex.get(j));
+                                visited.add(iterationIndex.get(i));
+
+
+                                count++;
+
+                                break;
+
+                            }
+                        }
+
+                    }
+                    else if (ch1 == 'G') {
+                        if (baseString.charAt(iterationIndex.get(j)) == 'C' || baseString.charAt(iterationIndex.get(j)) == 'U') {
+                            if (iterationIndex.get(j) - iterationIndex.get(i) >= 4 && !visited.contains(iterationIndex.get(j))) {
+                                visited.add(iterationIndex.get(j));
+                                visited.add(iterationIndex.get(i));
+
+                                count++;
+
+                                break;
+
+                            }
+                        }
+
+                    }
+                    else if (ch1 == 'C') {
+                        if (baseString.charAt(iterationIndex.get(j)) == 'G') {
+                            if (iterationIndex.get(j) - iterationIndex.get(i) >= 4 && !visited.contains(iterationIndex.get(j))) {
+                                visited.add(iterationIndex.get(j));
+                                visited.add(iterationIndex.get(i));
+
+                                count++;
+
+                                break;
+
+                            }
+                        }
+
+                    }
+                    else if (ch1 == 'A') {
+                        if (baseString.charAt(iterationIndex.get(j)) == 'U') {
+                            if (iterationIndex.get(j) - iterationIndex.get(i) >= 4 && !visited.contains(iterationIndex.get(j))) {
+                                visited.add(iterationIndex.get(j));
+                                visited.add(iterationIndex.get(i));
+
+                                count++;
+                                //  System.out.println(baseString.charAt(i) + " " + baseString.charAt(j) + " " + i + " " + j);
+                                break;
+
+                            }
+                        }
+
+                    }
+
+                }
+            }
+        }
+        iterationIndex=new ArrayList<>();
+        return count;
+
+    }
+    public void runThisFUnction()
+    {
+        int k=100;
+        if(baseString.length()<=2000)
         {
-            str=baseString.substring(0,in1);
-            str+=(baseString.substring(in1,in));
-            str+=(baseString.substring(in));
-
-
-            baseString=str;
+            k=50;
+        }
+        if(baseString.length()<=4000)
+        {
+            k=25;
+        }
+        if(baseString.length()<=8000 && baseString.length()>=6000)
+        {
+            k=5;
         }
         else
         {
-            str=(baseString.substring(0,in));
-            str+=(baseString.substring(in,in1));
-            str+=(baseString.substring(in1));
-            baseString=str;
-
+            k=1;
         }
-       // System.out.println("-------------------->"+baseString);
+
+
+        int max=getCount();
+        for(int i=0;i<k;i++)
+        {
+            int j=getRandomStart();
+            if(j>max)
+            {
+                max=j;
+            }
+        }
+        System.out.println(max);
+
+    }
+    public void getIndexes(int temp)
+    {
+        for(int i=temp;i<baseString.length();i++)
+        {
+            iterationIndex.add(i);
+        }
+        for(int i=temp-1;i>=0;i--)
+        {
+            iterationIndex.add(i);
+        }
 
     }
 

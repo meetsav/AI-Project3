@@ -1,3 +1,5 @@
+import jdk.swing.interop.SwingInterOpUtils;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -19,7 +21,8 @@ public class Main {
              initial=out.nextLine();
             // System.out.println(initial);
              BasePair bp=new BasePair(initial);
-             System.out.println(bp.getCount());
+           //  System.out.println(bp.getCount());
+             bp.runThisFUnction();
 
          }
 
