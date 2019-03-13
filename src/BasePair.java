@@ -4,9 +4,6 @@ public class BasePair {
 
     public String baseString=new String();
     public ArrayList<Integer> visited;
-    public String basepair1="AU";
-    public String basepair2="CG";
-    public String basepair3="GU";
 
     int count=0;
 
@@ -17,6 +14,7 @@ public class BasePair {
     }
     public int getCount()
     {
+        //this is method dows not use any algoritham, its like bruteforce
         visited=new ArrayList<>();
 
             for (int i = 0; i < baseString.length(); i++) {
@@ -94,8 +92,7 @@ public class BasePair {
     }
     public int getRandomStart()
     {
-        Random rn=new Random();
-        int in=rn.nextInt(baseString.length());
+      //this is random restart algoritham which rearrange the indexes which can be traverse and increase the number of count
       //  iterationIndex=new ArrayList<>();
         getIndexes();
 
@@ -181,6 +178,7 @@ public class BasePair {
     }
     public int runThisFUnction()
     {
+        //this is the main function which is responsible for getting the output
         long start=System.currentTimeMillis();
        // System.out.println(start);
         double k;
@@ -200,7 +198,7 @@ public class BasePair {
 
         max = getCount();
         count=0;
-
+//loop will run for maximum 1 minute if number of input is small then it will run several time until it gets output
         while(true) {
             k=setTimer(time);
             count=0;
@@ -233,7 +231,7 @@ public class BasePair {
 
     private double setTimer(int time) {
 
-        return(1.0-(0.0002*time));
+        return(1.0-(0.000002*time));
     }
 
 
@@ -261,8 +259,7 @@ public class BasePair {
             }
 
         }
-        //System.out.println(output.toString());
-       // System.out.println(iterationIndex);
+
 
 
 
