@@ -15,6 +15,7 @@ public class Main {
          String initial=new String();
          File fl;
          Scanner out;
+     //   System.out.println(System.currentTimeMillis());
          for(int i=1;i<=10;i++) {
              fl = new File(i+".txt");
              out = new Scanner(fl);
@@ -22,9 +23,12 @@ public class Main {
             // System.out.println(initial);
              BasePair bp=new BasePair(initial);
            //  System.out.println(bp.getCount());
-             bp.runThisFUnction();
+             System.out.println( bp.runThisFUnction());
+
 
          }
+      //  System.out.println(System.currentTimeMillis());
+
 
 
 
