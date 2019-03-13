@@ -1,3 +1,5 @@
+import jdk.swing.interop.SwingInterOpUtils;
+
 import java.util.*;
 
 public class BasePair {
@@ -207,9 +209,9 @@ public class BasePair {
                 return max;
             }
 
-            if((((System.currentTimeMillis()-start)*0.001)/60)>=1)
+            if((((System.currentTimeMillis()-start)*0.001)/60)>=0.99)
             {
-
+              //  System.out.println(((System.currentTimeMillis()-start)*0.001)/60);
                 return max;
             }
             else {
